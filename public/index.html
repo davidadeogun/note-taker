@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note Taking App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="add-box">
+        <div class="icon">+</div>
+        <p>Add a new Note</p>
+    </div>
+    <div class="popup-box">
+        <div class="popup">
+            <div class="content">
+                <header>
+                    <p>Add a new Note</p>
+                    <i class="close-btn">x</i>
+                </header>
+                <form id="note-form">
+                    <div class="row">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" required>
+                    </div>
+                    <div class="row">
+                        <label for="description">Description</label>
+                        <textarea id="description" required></textarea>
+                    </div>
+                    <button type="submit">Add Note</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <ul class="notes-wrapper"></ul>
+
+    <script src="app.js"></script>
+</body>
+</html>
