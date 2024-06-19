@@ -37,27 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    async function fetchCategories() {
-        try {
-            const res = await fetch('/api/categories');
-            const categories = await res.json();
-            displayCategories(categories);
-        } catch (error) {
-            console.error('Failed to fetch categories', error);
-            alert('Failed to fetch categories. Please try again later.');
-        }
-    }
-
-    function displayCategories(categories) {
-        categorySelect.innerHTML = '<option value="" disabled selected>Select category</option>';
-        categories.forEach((category) => {
-            let option = document.createElement('option');
-            option.value = category._id;
-            option.textContent = category.name;
-            categorySelect.appendChild(option);
-        });
-    }
-
     function displayNotes(notes) {
         notesWrapper.innerHTML = '';
         notes.forEach((note) => {
@@ -102,8 +81,8 @@ document.addEventListener("DOMContentLoaded", () => {
         titleTag.value = title;
         descTag.value = description;
         categorySelect.value = categoryId;
-        popupTitle.innerText = "Update Note";
-        addBtn.innerText = "Update Note";
+        popupTitle.innerText = "You can update your Note";
+        addBtn.innerText = "";
     }
 
     document.querySelector("#note-form").addEventListener("submit", async (e) => {
@@ -113,16 +92,14 @@ document.addEventListener("DOMContentLoaded", () => {
             category = categorySelect.value;
 
         if (title && description && category) {
-            const noteInfo = { title, description, category };
+            const currentDate = new Date(),
+                month = currentDate.toLocaleString('default', { month: 'long' }),
+                day = currentDate.getDate(),
+                year = currentDate.getFullYear(),
+                noteInfo = { title, description, date: `${month} ${day}, ${year}`, category };
 
             try {
                 if (!isUpdate) {
-                    const currentDate = new Date(),
-                        month = currentDate.toLocaleString('default', { month: 'long' }),
-                        day = currentDate.getDate(),
-                        year = currentDate.getFullYear();
-                    noteInfo.date = `${month} ${day}, ${year}`;
-
                     await fetch('/api/notes', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -145,6 +122,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    fetchCategories();
     fetchNotes();
 });
