@@ -1,6 +1,6 @@
 # Overview
 
-This project is a note-taking application designed to enhance my skills as a software engineer and deepen my understanding of integrating frontend and backend technologies with a cloud database. The application allows users to add and view notes. The backend is powered by Node.js and Express, while MongoDB serves as the cloud database to store and retrieve notes. The application is deployed on Vercel, leveraging its serverless functions to handle backend logic.
+This project is a note-taking application designed to enhance my skills as a software engineer and deepen my understanding of integrating frontend and backend technologies with a cloud database. The application allows users to add and view notes. The backend is powered by Node.js and Express, while MongoDB serves as the cloud database to store and retrieve notes. The application is deployed on Heroku.
 
 The primary purpose of this project is to demonstrate my ability to create a full-stack web application, integrate it with a cloud database, and deploy it to a cloud platform for easy access and scalability.
 
@@ -10,7 +10,7 @@ The primary purpose of this project is to demonstrate my ability to create a ful
 
 The cloud database used for this project is MongoDB Atlas, a highly scalable and flexible NoSQL database. MongoDB Atlas provides a fully managed database service, making it easy to deploy, operate, and scale MongoDB in the cloud.
 
-The database structure consists of a single collection named `notes`, where each note is stored as a document. Each document has the following structure:
+The database structure consists of two collections named `notes` and `categories`, where each is stored as a document. Each document has the following structure:
 
 - `content`: A string representing the content of the note.
 - `createdAt`: A date indicating when the note was created.
