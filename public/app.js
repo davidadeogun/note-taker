@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     addBox.addEventListener("click", () => {
         popupTitle.innerText = "Add a new Note";
-        addBtn.innerText = "Add Note";
+        addBtn.innerText = "";
         popupBox.classList.add("show");
         document.querySelector("body").style.overflow = "hidden";
         if (window.innerWidth > 660) titleTag.focus();
