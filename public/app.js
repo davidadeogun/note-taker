@@ -63,15 +63,17 @@ document.addEventListener("DOMContentLoaded", () => {
         notes.forEach((note) => {
             let filterDesc = note.description.replaceAll("\n", '<br/>');
             let formattedDate = new Date(note.date).toLocaleDateString(); // Format the date
+            let categoryName = note.category.name; // Get the category name
             let liTag = `<li class="note" data-id="${note._id}">
                             <div class="details">
                                 <p>${note.title}</p>
                                 <span>${filterDesc}</span>
                             </div>
                             <div class="bottom-content">
-                                <span>${formattedDate}</span> <!-- Use formatted date -->
+                                <span class="category">${categoryName}</span> <!-- Display category name -->
+                                <span class="date">${formattedDate}</span> <!-- Use formatted date -->
                                 <div class="settings">
-                                    <button class="menu-btn" onclick="updateNote('${note._id}', '${note.title}', '${filterDesc}', '${note.category}')"><i class="uil uil-pen"></i>Edit</button>
+                                    <button class="menu-btn" onclick="updateNote('${note._id}', '${note.title}', '${filterDesc}', '${note.category._id}')"><i class="uil uil-pen"></i>Edit</button>
                                     <button class="menu-btn" onclick="deleteNote('${note._id}')"><i class="uil uil-trash"></i>Delete</button>
                                 </div>
                             </div>
@@ -100,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         titleTag.value = title;
         descTag.value = description;
         categorySelect.value = categoryId;
-        popupTitle.innerText = "Update a Note";
+        popupTitle.innerText = "Update Note";
         addBtn.innerText = "Update Note";
     }
 
@@ -110,17 +112,17 @@ document.addEventListener("DOMContentLoaded", () => {
             description = descTag.value.trim(),
             category = categorySelect.value;
 
-        console.log('Form data:', { title, description, category });
-
         if (title && description && category) {
-            const currentDate = new Date(),
-                month = currentDate.toLocaleString('default', { month: 'long' }),
-                day = currentDate.getDate(),
-                year = currentDate.getFullYear(),
-                noteInfo = { title, description, date: `${month} ${day}, ${year}`, category };
+            const noteInfo = { title, description, category };
 
             try {
                 if (!isUpdate) {
+                    const currentDate = new Date(),
+                        month = currentDate.toLocaleString('default', { month: 'long' }),
+                        day = currentDate.getDate(),
+                        year = currentDate.getFullYear();
+                    noteInfo.date = `${month} ${day}, ${year}`;
+
                     await fetch('/api/notes', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
